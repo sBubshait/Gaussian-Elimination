@@ -45,6 +45,28 @@ data class Matrix(private val elements: List<Vector>) {
 
     operator fun iterator(): Iterator<Vector> = elements.iterator()
 
+    fun transpose(): Matrix = Matrix(this.columns)
+
+    // Elementary Row Operations:
+    fun swapRows(i: Int, j: Int): Matrix {
+        val newElements = elements.toMutableList()
+        newElements[i] = elements[j]
+        newElements[j] = elements[i]
+        return Matrix(newElements)
+    }
+
+    fun multiplyRow(i: Int, scalar: Double): Matrix {
+        val newElements = elements.toMutableList()
+        newElements[i] = elements[i] * scalar
+        return Matrix(newElements)
+    }
+
+    fun addMultipleOfRow(i: Int, j: Int, scalar: Double): Matrix {
+        val newElements = elements.toMutableList()
+        newElements[i] = elements[i] + (elements[j] * scalar)
+        return Matrix(newElements)
+    }
+
     override fun toString(): String {
         val sps: List<Int> =
             columns.map { c -> (0 until c.length).maxOf { c[it].toString().length } }
