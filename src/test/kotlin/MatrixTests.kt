@@ -129,6 +129,49 @@ class MatrixTests {
     }
 
     @Test
+    fun `transpose`() {
+        val m1 = Matrix(
+            listOf(
+                Vector(listOf(1.0, 2.0, 4.0, 0.5, 1.0)),
+                Vector(listOf(0.0, 1.0, 0.0, 2.0, 4.0)),
+                Vector(listOf(1.0, 0.0, 1.0, 2.0, 4.0)),
+                Vector(listOf(2.0, 0.0, 1.0, 1.0, 1.0)),
+            ),
+        )
+        val transposed = Matrix(
+            listOf(
+                Vector(listOf(1.0, 0.0, 1.0, 2.0)),
+                Vector(listOf(2.0, 1.0, 0.0, 0.0)),
+                Vector(listOf(4.0, 0.0, 1.0, 1.0)),
+                Vector(listOf(0.5, 2.0, 2.0, 1.0)),
+                Vector(listOf(1.0, 4.0, 4.0, 1.0)),
+            ),
+        )
+        assertEquals(transposed, m1.transpose())
+    }
+
+    @Test
+    fun `can add a multiple of a row into another`() {
+        val m1 = Matrix(
+            listOf(
+                Vector(listOf(1.0, 2.0, 4.0, 0.5, 1.0)),
+                Vector(listOf(0.0, 1.0, 0.0, 2.0, 4.0)),
+                Vector(listOf(1.0, 0.0, 1.0, 2.0, 4.0)),
+                Vector(listOf(2.0, 0.0, 1.0, 1.0, 1.0)),
+            ),
+        )
+        val m2 = Matrix(
+            listOf(
+                Vector(listOf(1.0, 2.0, 4.0, 0.5, 1.0)),
+                Vector(listOf(0.0, 1.0, 0.0, 2.0, 4.0)),
+                Vector(listOf(0.0, -2.0, -3.0, 1.5, 3.0)),
+                Vector(listOf(2.0, 0.0, 1.0, 1.0, 1.0)),
+            ),
+        )
+        assertEquals(m2, m1.addMultipleOfRow(2, 0, -1.0))
+    }
+
+    @Test
     fun `string  representation`() {
         val m1 = Matrix(
             listOf(

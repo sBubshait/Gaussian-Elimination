@@ -2,9 +2,8 @@ package gaussianelimination
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.fail
 
-class AugmetedMatrixTests {
+class AugmentedMatrixTests {
 
     private val m1 = Matrix(
         listOf(
