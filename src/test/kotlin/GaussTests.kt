@@ -38,5 +38,46 @@ class GaussTests {
             ),
             Vector(-14.0, -19.0, 17.0)
         )
+
+        assertEquals(expectedMatrix, steps.last().matrix)
+    }
+
+    @Test
+    fun `can compute RREF if the augmented matrix has multiple columns`() {
+        val identity = Matrix(
+            listOf(
+                Vector(listOf(1.0, 0.0, 0.0, 0.0)),
+                Vector(listOf(0.0, 1.0, 0.0, 0.0)),
+                Vector(listOf(0.0, 0.0, 1.0, 0.0)),
+                Vector(listOf(0.0, 0.0, 0.0, 1.0)),
+            )
+        )
+
+        val m = AugmentedMatrix(
+            Matrix(
+                listOf(
+                    Vector(listOf(1.0, 0.0, 1.0, 0.0)),
+                    Vector(listOf(0.0, 1.0, 1.0, 0.0)),
+                    Vector(listOf(1.0, 1.0, 0.0, 1.0)),
+                    Vector(listOf(1.0, 0.0, 1.0, 1.0)),
+                )
+            ),
+            identity
+        )
+
+        val inverse = Matrix(
+            listOf(
+                Vector(listOf(1.0, -0.5, 0.5, -0.5)),
+                Vector(listOf(0.0, 0.5, 0.5, -0.5)),
+                Vector(listOf(0.0, 0.5, -0.5, 0.5)),
+                Vector(listOf(-1.0, 0.0, 0.0, 1.0)),
+                )
+        )
+
+        val gauss = Gauss(m)
+        val steps = gauss.reduceToRREF()
+
+        assertEquals(identity, steps.last().matrix.matrix1)
+        assertEquals(inverse, steps.last().matrix.matrix2)
     }
 }

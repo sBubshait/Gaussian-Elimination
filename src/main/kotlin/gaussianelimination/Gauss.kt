@@ -14,11 +14,16 @@ class Gauss(var matrix: AugmentedMatrix) {
         return solveWithSteps().last().matrix.matrix2[0]
     }
 
-    fun solveWithSteps(): List<GaussStep> = reduceToRREF() // TODO: Actually solve the system :)
+    fun solveWithSteps(): List<GaussStep> {
+        val rref = reduceToRREF()
+        return rref;
+    }
 
     fun reduceToRREF(): List<GaussStep> {
         val steps = mutableListOf<GaussStep>()
-        for (i in 0..< m.numRows) {
+        val minDim = minOf(m.numRows, m.numColumns)
+
+        for (i in 0..< minDim) {
             val pivotStep = makePivot(i)
             if (pivotStep != null) {
                 steps += pivotStep

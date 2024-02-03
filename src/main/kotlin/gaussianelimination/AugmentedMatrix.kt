@@ -26,6 +26,12 @@ data class AugmentedMatrix(val matrix1: Matrix, val matrix2: Matrix) {
         return AugmentedMatrix(newMatrix1, newMatrix2)
     }
 
+    // Pre: matrix1 is in RREF.
+    fun rank(): Int {
+        val nonZeroRows = matrix1.elements.filter { it.elements.any { d -> d != 0.0 } }
+        return nonZeroRows.size
+    }
+
     override fun toString(): String {
         val matrix1Printed = matrix1.toString().split("\n").map { it.dropLast(1) }
         val matrix2Printed = matrix2.toString().split("\n").map { it.drop(1) }

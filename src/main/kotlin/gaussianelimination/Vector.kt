@@ -1,6 +1,6 @@
 package gaussianelimination
 
-data class Vector(private val elements: List<Double>) {
+data class Vector(val elements: List<Double>) {
 
     constructor(vararg elems: Double) : this(elems.asList())
 
